@@ -22,7 +22,9 @@
 #' @param paths_path The paths used for relative addresses (see the "Demetra Paths" of the graphical interface of 'JDemetra+').
 #' @param v3 Boolean indicating if the parameter file should be compatible with a version 3.0.0 and higher of 'JWSACRuncher' (\code{v3 = TRUE}) or a lower version (\code{v3 = FALSE}). By default 
 #' the value of the option \code{"is_cruncher_v3"} is used.
-#' @details When the 'JWSACruncher' is launched, the data is refreshed with a specific policy that is defined by the parameter \code{policy}. The available options are:
+#' @param check_policy Boolean indicating if the policy spelling should be checked: if `TRUE` (the default),
+#'  a warning will be issued if the policy is not described in the documentation of the function (see details).
+#' @details When the 'JWSACruncher' is launched, the data is refreshed and the model updated with a specific policy that is defined by the parameter \code{policy}. The available options are:
 #' \itemize{
 #' \item \code{policy = "current"}: all the estimations are fixed and AO added for new data (since v.2.2.3), short name `policy = "n"`;
 #' \item \code{policy = "fixed"}: all the estimations are fixed (since v.2.2.3), short name `policy = "f"`;
@@ -32,7 +34,8 @@
 #' \item \code{policy = "lastoutliers"}: \code{policy = "parameters"} + re-identification of last outliers (on the last year), short name `policy = "l"`;
 #' \item \code{policy = "outliers"}: \code{policy = "lastoutliers"} + re-identification of all outliers, short name `policy = "o"`;
 #' \item \code{policy = "stochastic"}: \code{policy = "outliers"} + re-identification of ARIMA orders, short name `policy = "s"`;
-#' \item \code{policy = "complete"} or \code{policy = "concurrent"}: the model is completely re-identified and re-estimated, short name `policy = "c"`.
+#' \item \code{policy = "complete"} or \code{policy = "concurrent"}: the model is completely re-identified and re-estimated, short name `policy = "c"`;
+#' \item if none of this policies is specified (or if \code{policy = "none"}), no refresh policy will be applied..
 #' }
 #' 
 #' @return Path to the parameter file.
@@ -58,7 +61,8 @@ create_param_file <- function(
     tsmatrix_series = getOption("default_tsmatrix_series"),
     paths_path = NULL,
     v3 = getOption("is_cruncher_v3"),
-    file_param = file.path(dir_file_param, "parameters.param")
+    file_param = file.path(dir_file_param, "parameters.param"),
+    check_policy = TRUE
     ){
   if (missing(dir_file_param) & missing(file_param))
     stop("The parameter dir_file_param is missing")
@@ -81,6 +85,17 @@ create_param_file <- function(
                         "JD3", sep = "\"")
   }
   param_line <- paste(param_line,">", sep = "\"")
+  if (is.null(policy)) {
+    policy <- "none"
+  } 
+  if (!tolower(policy) %in% c(
+    "current", "n", "fixed", "f", "fixedparameters", "fp",
+    "fixedarparameters", "farp", "parameters", "p", "lastoutliers", "l", 
+    "outliers", "o", "stochastic", "s", "complete", "concurrent", "c",
+    "none") & check_policy) {
+    warning(sprintf("The policy '%s' doesn't seem valid: JDemetra+ might not perform any refreshing if it doesn't exist.", policy),
+            "\nSee ?create_param_file for the list of available policies.")
+  }
   policy_line <- paste0("    <policy>", policy, "</policy>")
   refresh_line <- paste0("    <refreshall>", ifelse(refreshall, 'true', 'false'), "</refreshall>")
   
