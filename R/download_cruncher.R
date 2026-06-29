@@ -2,7 +2,7 @@
 #'
 #' Function to download the ZIP file of the 'JWSACruncher' (`download_cruncher()`) or 'JDemetra+' (`download_jdemetra()`).
 #'
-#' @param directory Directory where to save the file. In Windows, a dialog box opens 
+#' @param directory Directory where to save the file. In Windows, a dialog box opens.
 #' by default to select the directory.
 #' @param cruncher_version Character of the version to download ("X.Y.Z" format). By default the last version is downloaded.
 #' @param v3 Boolean indicating, when parameter \code{cruncher_version} is missing, if the last version of the 'JWSACruncher' should be a 3.x.y version or a 2.x.y. By default 

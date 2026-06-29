@@ -21,7 +21,8 @@ create_param_file(
   tsmatrix_series = getOption("default_tsmatrix_series"),
   paths_path = NULL,
   v3 = getOption("is_cruncher_v3"),
-  file_param = file.path(dir_file_param, "parameters.param")
+  file_param = file.path(dir_file_param, "parameters.param"),
+  check_policy = TRUE
 )
 }
 \arguments{
@@ -60,6 +61,9 @@ the value of the option \code{"is_cruncher_v3"} is used.}
 
 \item{file_param}{Path to the parameters file.
 By default the file is named \code{parameters.param} and it is created at the \code{fir_file_param} directory.}
+
+\item{check_policy}{Boolean indicating if the policy spelling should be checked: if \code{TRUE} (the default),
+a warning will be issued if the policy is not described in the documentation of the function (see details).}
 }
 \value{
 Path to the parameter file.
@@ -68,7 +72,7 @@ Path to the parameter file.
 To run the 'JWSACruncher' needs a parameter file and \code{create_param_file} allows to create it.
 }
 \details{
-When the 'JWSACruncher' is launched, the data is refreshed with a specific policy that is defined by the parameter \code{policy}. The available options are:
+When the 'JWSACruncher' is launched, the data is refreshed and the model updated with a specific policy that is defined by the parameter \code{policy}. The available options are:
 \itemize{
 \item \code{policy = "current"}: all the estimations are fixed and AO added for new data (since v.2.2.3), short name \code{policy = "n"};
 \item \code{policy = "fixed"}: all the estimations are fixed (since v.2.2.3), short name \code{policy = "f"};
@@ -78,7 +82,8 @@ When the 'JWSACruncher' is launched, the data is refreshed with a specific polic
 \item \code{policy = "lastoutliers"}: \code{policy = "parameters"} + re-identification of last outliers (on the last year), short name \code{policy = "l"};
 \item \code{policy = "outliers"}: \code{policy = "lastoutliers"} + re-identification of all outliers, short name \code{policy = "o"};
 \item \code{policy = "stochastic"}: \code{policy = "outliers"} + re-identification of ARIMA orders, short name \code{policy = "s"};
-\item \code{policy = "complete"} or \code{policy = "concurrent"}: the model is completely re-identified and re-estimated, short name \code{policy = "c"}.
+\item \code{policy = "complete"} or \code{policy = "concurrent"}: the model is completely re-identified and re-estimated, short name \code{policy = "c"};
+\item if none of this policies is specified (or if \code{policy = "none"}), no refresh policy will be applied..
 }
 }
 \examples{

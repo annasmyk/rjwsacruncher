@@ -21,7 +21,7 @@ download_jdemetra(
 )
 }
 \arguments{
-\item{directory}{Directory where to save the file. In Windows, a dialog box opens
+\item{directory}{Directory where to save the file. In Windows, a dialog box opens.
 by default to select the directory.}
 
 \item{cruncher_version}{Character of the version to download ("X.Y.Z" format). By default the last version is downloaded.}

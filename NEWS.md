@@ -1,10 +1,12 @@
 # rjwsacruncher 0.2.4 (unreleased)
 
+- add new parameter `check_policy` to `create_param_file()` function to check if the policy spelling is correct and to produce a warning if not (#5).
+
 # rjwsacruncher 0.2.3
 
 - add new parameter `standalone` to `download_cruncher()`.
 
-- A startup message is added indicating which version of the JWSACruncher is used by default (defined by the option `"is_cruncher_v3"`).
+- a startup message is added indicating which version of the JWSACruncher is used by default (defined by the option `"is_cruncher_v3"`).
 
 - new function `download_jdemetra()` to download the JDemetra+ software.
 
