@@ -43,7 +43,7 @@
 #' @encoding UTF-8
 #' @examples
 #' \dontrun{
-#' dir = tempdir()
+#' dir <- tempdir()
 #' # Here a file parameters.param is created in the directory dir
 #' # with default parameters of the different options
 #' create_param_file(dir)
@@ -93,7 +93,7 @@ create_param_file <- function(
     "fixedarparameters", "farp", "parameters", "p", "lastoutliers", "l", 
     "outliers", "o", "stochastic", "s", "complete", "concurrent", "c",
     "none") & check_policy) {
-    warning(sprintf("The policy '%s' doesn't seem valid: JDemetra+ might not perform any refreshing if it doesn't exist.", policy),
+    warning(sprintf("The policy '%s' doesn't seem valid: JDemetra+ will not perform any refreshing policy if it doesn't exist.", policy),
             "\nSee ?create_param_file for the list of available policies.")
   }
   policy_line <- paste0("    <policy>", policy, "</policy>")

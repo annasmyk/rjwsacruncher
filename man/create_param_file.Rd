@@ -88,7 +88,7 @@ When the 'JWSACruncher' is launched, the data is refreshed and the model updated
 }
 \examples{
 \dontrun{
-dir = tempdir()
+dir <- tempdir()
 # Here a file parameters.param is created in the directory dir
 # with default parameters of the different options
 create_param_file(dir)
